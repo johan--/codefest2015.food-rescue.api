@@ -5,29 +5,26 @@ class SessionsController < Devise::SessionsController
   respond_to :json
 
   def create
-    warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
-    render :status => 200,
-           :json => { success: true,
-                      info: "Logged in",
-                      data: {
-                        auth_token: current_user.authentication_token,
-                        type: current_user.type
-                      } }
+    resource = User.find_for_database_authentication(:email => params[:user][:email])
+    return invalid_login_attempt unless resource
+
+    if resource.valid_password?(params[:user][:password])
+        resource.ensure_authentication_token!  #make sure the user has a token generated
+        render :json => current_user, :status => :created
+    else
+      return invalid_login_attempt
+    end
   end
 
   def destroy
-    warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
-    current_user.update_column(:authentication_token, nil)
-    render :status => 200,
-           :json => { :success => true,
-                      :info => "Logged out",
-                      :data => {} }
+    # expire auth token
+    @user=User.where(:authentication_token=>params[:auth_token]).first
+    @user.reset_authentication_token!
+    render :json => { :message => ["Session deleted."] },  :success => true, :status => :ok
   end
 
-  def failure
-    render :status => 401,
-           :json => { :success => false,
-                      :info => "Login Failed",
-                      :data => {} }
+  def invalid_login_attempt
+      warden.custom_failure!
+      render :json => { :errors => ["Invalid email or password."] },  :success => false, :status => :unauthorized
   end
 end
