@@ -5,10 +5,10 @@ class SessionsController < Devise::SessionsController
   respond_to :json
 
   def create
-    resource = User.find_for_database_authentication(:email => params[:user][:email])
+    resource = User.find_for_database_authentication(:email => params[:email])
     return invalid_login_attempt unless resource
 
-    if resource.valid_password?(params[:user][:password])
+    if resource.valid_password?(params[:password])
         resource.ensure_authentication_token!  #make sure the user has a token generated
         render :json => current_user, :status => :created
     else
