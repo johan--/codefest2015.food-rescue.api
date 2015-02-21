@@ -32,6 +32,8 @@ gem 'geocoder'
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'rails-api'
+
+gem 'validates_zipcode'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

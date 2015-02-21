@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :zipcode, only: [:show]
       resources :users, only: [:update]
       resources :drivers, only: [:index, :update]
       resources :donors, only: [] do

@@ -12,9 +12,13 @@ class ApplicationController < ActionController::API
         render :json => { :errors => ["Unauthorized"] },  :success => false, :status => :unauthorized
       end
 
-      @current_user = user
-
       return true
+    end
+  end
+
+  def current_user
+    @current_user ||= authenticate_or_request_with_http_basic do |user_name, token|
+      User.where(email: user_name).first
     end
   end
 end
