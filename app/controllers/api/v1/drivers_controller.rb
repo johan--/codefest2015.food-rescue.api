@@ -1,5 +1,5 @@
 class Api::V1::DriversController < ApplicationController
-  before_action :authenticate_user!
+  before_action :verify_authentication_token!
 
   def index
     render json: current_user
