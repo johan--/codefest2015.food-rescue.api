@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  # acts_as_token_authentication_handler_for User
+  before_action :set_headers_for_ionic
+
+
 
   def verify_authentication_token!
     authenticate_or_request_with_http_basic do |user_name, token|
@@ -14,5 +14,9 @@ class ApplicationController < ActionController::Base
 
       return true
     end
+  end
+
+  def set_headers_for_ionic
+    response.headers("Access-Control-Allow-Origin", "*");
   end
 end
