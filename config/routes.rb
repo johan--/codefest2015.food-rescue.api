@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :users, only: [:update]
       resources :drivers, only: [:index, :update]
       resources :donors, only: [] do
         resources :donations, only: [:index, :create, :update]

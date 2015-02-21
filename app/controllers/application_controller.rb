@@ -1,4 +1,6 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::API
+  include ActionController::HttpAuthentication::Basic::ControllerMethods
+
   skip_before_action :verify_authenticity_token
 
   def verify_authentication_token!
@@ -10,17 +12,9 @@ class ApplicationController < ActionController::Base
         render :json => { :errors => ["Unauthorized"] },  :success => false, :status => :unauthorized
       end
 
-      return true
-    end
-  end
+      @current_user = user
 
-  def current_user
-    @current_user ||= authenticate_or_request_with_http_basic do |user_name, token|
-      if user_name
-        User.find_by(email: user_name)
-      else
-        nil
-      end
+      return true
     end
   end
 end
