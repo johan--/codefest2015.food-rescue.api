@@ -13,4 +13,14 @@ class ApplicationController < ActionController::Base
       return true
     end
   end
+
+  def current_user
+    @current_user ||= authenticate_or_request_with_http_basic do |user_name, token|
+      if user_name
+        User.find_by(email: user_name)
+      else
+        nil
+      end
+    end
+  end
 end
