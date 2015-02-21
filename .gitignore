@@ -12,4 +12,4 @@
 !/log/.keep
 /tmp
 
-/config/dabase.yml
+/config/database.yml
