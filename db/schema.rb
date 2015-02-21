@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150221163300) do
+ActiveRecord::Schema.define(version: 20150221163329) do
+
+  create_table "drivers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255,   default: "", null: false
@@ -32,6 +37,18 @@ ActiveRecord::Schema.define(version: 20150221163300) do
     t.string   "address_2",              limit: 255
     t.string   "phone_number",           limit: 255
     t.text     "special_instructions",   limit: 65535
+    t.string   "type",                   limit: 255
+    t.string   "first_name",             limit: 255
+    t.string   "last_name",              limit: 255
+    t.string   "license_plate_number",   limit: 255
+    t.string   "zipcode",                limit: 255
+    t.string   "city",                   limit: 255
+    t.string   "state",                  limit: 255
+    t.string   "drivers_license_number", limit: 255
+    t.string   "car_type",               limit: 255
+    t.string   "car_make",               limit: 255
+    t.string   "car_model",              limit: 255
+    t.string   "car_year",               limit: 255
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
