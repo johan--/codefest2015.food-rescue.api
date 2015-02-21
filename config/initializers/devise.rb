@@ -257,5 +257,10 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
-  config.navigational_formats = ["*/*", :json]
+  config.warden do |manager|
+    manager.failure_app = CustomAuthFailure
+  end
+
+  config.http_authenticatable = true
+  config.skip_session_storage = [:http_auth, :token_auth]
 end
