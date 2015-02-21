@@ -11,17 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150221153342) do
-
-  create_table "drivers", force: :cascade do |t|
-    t.string   "fname",              limit: 255
-    t.string   "lname",              limit: 255
-    t.string   "email",              limit: 255
-    t.string   "license_plate_no",   limit: 255
-    t.string   "drivers_license_no", limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-  end
+ActiveRecord::Schema.define(version: 20150221161619) do
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
