@@ -38,7 +38,7 @@ gem 'geocoder'
 
 group :production do
   gem 'rails_12factor'
-  gem 'postgres'
+  gem 'pg'
 end
 
 group :development, :test do
