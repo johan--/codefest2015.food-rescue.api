@@ -7,7 +7,7 @@ class Api::V1::DonationsController < ApplicationController
   end
 
   def create
-    @donation = current_user.donations.create(donation_params)
+    @donation = current_user.donations.create!(donation_params)
     render json: @donation
   end
 

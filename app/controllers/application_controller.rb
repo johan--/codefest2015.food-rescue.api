@@ -17,8 +17,10 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    @current_user ||= authenticate_or_request_with_http_basic do |user_name, token|
-      User.where(email: user_name).first
+    @current_user if @current_user
+
+    authenticate_or_request_with_http_basic do |user_name, token|
+      @current_user = User.where(email: user_name).first
     end
   end
 end
