@@ -9,10 +9,6 @@ class Api::V1::DonationsController < ApplicationController
   end
 
   def create
-    puts("==============")
-    puts current_user.inspect
-    puts("==============")
-
     @donation = current_user.donations.create!(donation_params)
     render json: @donation
   end
