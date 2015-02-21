@@ -6,7 +6,7 @@ class Api::V1::DriversController < ApplicationController
   end
 
   def update
-    current_user.update(drive_params)
+    current_user.update(driver_params)
     render json: current_user
   end
 
@@ -14,7 +14,7 @@ class Api::V1::DriversController < ApplicationController
   private
 
   def driver_params
-    params[:drive].permit(
+    params[:driver].permit(
       :first_name, :last_name,
       :license_plate_number, :zipcode,
       :city, :state, :drivers_license_number,

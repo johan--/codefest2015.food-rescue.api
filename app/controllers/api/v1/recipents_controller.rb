@@ -1,4 +1,4 @@
-class Api::V1::DonorsController < ApplicationController
+class Api::V1::RecipentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
@@ -6,15 +6,15 @@ class Api::V1::DonorsController < ApplicationController
   end
 
   def update
-    current_user.update(donor_params)
+    current_user.update(recipents_params)
     render json: current_user
   end
 
 
   private
 
-  def donor_params
-    params[:donor].permit!
+  def recipents_params
+    params[:recipent].permit!
   end
 end
 
