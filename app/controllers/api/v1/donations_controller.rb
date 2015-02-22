@@ -22,9 +22,15 @@ class Api::V1::DonationsController < ApplicationController
     render json: @donation
   end
 
+  def current_donations
+    donation = current_user.donations.where(completed: false)
+    render json: donation
+  end
+
   def start_donation
     donation = Donation.find(params[:id])
     donation.start!(current_user)
+    render json: { success: true }
   end
 
   def verify_driver_to_donor_handshake

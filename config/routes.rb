@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
           collection do
             get :past_donations
+            get :current_donations
           end
         end
       end
