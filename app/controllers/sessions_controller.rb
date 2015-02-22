@@ -9,6 +9,7 @@ class SessionsController < Devise::SessionsController
     return invalid_login_attempt unless resource
 
     if resource.valid_password?(params[:password])
+        resource.device_id = params[:device_id]
         resource.ensure_authentication_token!  #make sure the user has a token generated
         render :json => {
           user: resource,
@@ -21,8 +22,9 @@ class SessionsController < Devise::SessionsController
 
   def destroy
     # expire auth token
-    @user=User.where(:authentication_token=>params[:auth_token]).first
-    @user.reset_authentication_token!
+    user = User.where(:authentication_token=>params[:auth_token]).first
+    user.device_id = nil
+    user.reset_authentication_token!
     render :json => { :message => ["Session deleted."] },  :success => true, :status => :ok
   end
 
