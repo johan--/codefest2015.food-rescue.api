@@ -13,9 +13,9 @@ Rails.application.routes.draw do
       resources :donors, only: [] do
         resources :donations, except: [:new, :edit] do
           member do
-            get :start_donation
-            get :verify_driver_to_donor_handshake
-            get :verify_donor_to_recipient_handshake
+            post :start_donation
+            post :verify_driver_to_donor_handshake
+            post :verify_donor_to_recipient_handshake
           end
 
           collection do
