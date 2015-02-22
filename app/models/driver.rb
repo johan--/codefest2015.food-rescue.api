@@ -13,6 +13,7 @@ class Driver < User
 
       Donation.where(donor_id: donor["id"]).each do |donation|
         donations_json << {
+          id: donation.id,
           name: donation.name,
           description: donation.description,
           weight: donation.weight,
