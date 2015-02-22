@@ -54,7 +54,7 @@ class Donation < ActiveRecord::Base
 
     if devices.length > 0
       PushNotification.new.notify_devices({
-        content: "#{self.driver.first_name} has picked up #{self.organization_name}'s donation.",
+        content: "#{self.driver.first_name} has picked up #{self.donor.organization_name}'s donation.",
         devices: devices
       })
     end
@@ -78,7 +78,7 @@ class Donation < ActiveRecord::Base
 
     if devices.length > 0
       PushNotification.new.notify_devices({
-        content: "#{self.driver.first_name} has started their journey to #{self.organization_name}.",
+        content: "#{self.driver.first_name} has started their journey to #{self.donor.organization_name}.",
         devices: devices
       })
     end
