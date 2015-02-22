@@ -23,7 +23,7 @@ class Api::V1::DonationsController < ApplicationController
   end
 
   def start_donation
-    donation = current_user.donation.find(params[:id])
+    donation = Donation.find(params[:id])
     donation.start!
   end
 
