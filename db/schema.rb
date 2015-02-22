@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222052045) do
+ActiveRecord::Schema.define(version: 20150222053354) do
 
   create_table "donations", force: :cascade do |t|
     t.string   "name",                         limit: 255
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150222052045) do
     t.string   "donor_to_recipient_handshake", limit: 255
     t.string   "status",                       limit: 255
     t.boolean  "completed",                    limit: 1,     default: false
+    t.datetime "completd_at"
   end
 
   create_table "drivers", force: :cascade do |t|

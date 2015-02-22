@@ -16,7 +16,6 @@ class Api::V1::DonationsController < ApplicationController
 
     if @donation.id
       @donation.recipient = Recipient.first
-      @donation.status = 'Pending'
       @donation.save!
     end
 
@@ -25,8 +24,7 @@ class Api::V1::DonationsController < ApplicationController
 
   def start_donation
     donation = current_user.donation.find(params[:id])
-    donation.status = 'Driver In Progress'
-    donation.save!
+    donation.start!
   end
 
   def verify_driver_to_donor_handshake
@@ -34,8 +32,7 @@ class Api::V1::DonationsController < ApplicationController
 
     if donation.driver_to_donor_handshake == params[:hash]
       if Digest::SHA1.hexdigest(donation.id.to_s + 'donor-handshake') == params[:hash]
-        donation.status = 'Arrived at Donor'
-        donation.save!
+        donation.arrived_at_donor!
         render json: donation
       else
         render json: { success: false }
@@ -50,9 +47,7 @@ class Api::V1::DonationsController < ApplicationController
 
     if donation.donor_to_recipient_handshake  == params[:hash]
       if Digest::SHA1.hexdigest(donation.id.to_s + 'recipient-handshake') == params[:hash]
-        donation.status = 'Arrived at Recipient'
-        donation.completed = true
-        donation.save!
+        donation.complete!
         render json: donation
       else
         render json: { success: false }
