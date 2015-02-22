@@ -61,7 +61,8 @@ class Donation < ActiveRecord::Base
 
   end
 
-  def start!
+  def start!(driver)
+    self.driver = driver
     self.status = 'Driver In Progress'
     self.save!
 

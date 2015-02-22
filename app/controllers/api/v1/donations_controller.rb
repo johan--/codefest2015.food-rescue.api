@@ -24,7 +24,7 @@ class Api::V1::DonationsController < ApplicationController
 
   def start_donation
     donation = Donation.find(params[:id])
-    donation.start!
+    donation.start!(current_user)
   end
 
   def verify_driver_to_donor_handshake
