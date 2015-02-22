@@ -9,7 +9,7 @@ class Driver < User
     sql = Donor.by_distance(origin: origin).to_sql
     result = ActiveRecord::Base.connection.execute(sql)
 
-    result.each(as: :hash) do |donor|
+    result.each as: :hash do |donor|
       Donation.where(donor_id: donor["id"]).each do |donation|
         donations_json << {
           name: donation.name,
