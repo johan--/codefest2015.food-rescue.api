@@ -29,7 +29,7 @@ class Api::V1::DonationsController < ApplicationController
   end
 
   def arrived_at_donor
-    donation = current_user.donation.find(params[:id])
+    donation = current_user.donations.find(params[:id])
     donation.arrived_at_donor!
     render json: { success: true }
   end
@@ -91,7 +91,7 @@ class Api::V1::DonationsController < ApplicationController
     params[:donation].permit(
       :name, :description, :weight,
       :special_instructions, :donor_id,
-      :dimensions, :driver_id, :recipient_id
+      :dimensions, :driver_id, :recipient_id, :image
     )
   end
 
