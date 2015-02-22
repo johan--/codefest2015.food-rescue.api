@@ -18,15 +18,7 @@ class Driver < User
           weight: donation.weight,
           special_instructions: donation.special_instructions,
           recipient: donation.recipient,
-          donor: {
-            id: donor.id,
-            address_1: donor.address_1,
-            address_2: donor.address_2,
-            city: donor.city,
-            state: donor.state,
-            zipcode: donor.zipcode,
-            phone_number: donor.phone_number
-          },
+          donor: donor,
           dimensions: donation.dimensions,
           distance: donor.calc_distance(donor, self) + donor.calc_distance(donor, donation.recipient) + donor.calc_distance(donation.recipient, self)
         }
