@@ -18,8 +18,10 @@ Rails.application.routes.draw do
         resources :donations, except: [:new, :edit] do
           member do
             post :start_donation
+            post :arrived_at_donor
             post :verify_driver_to_donor_handshake
-            post :verify_donor_to_recipient_handshake
+            post :arrived_at_recipient
+            post :verify_driver_to_recipient_handshake
           end
 
           collection do

@@ -11,24 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222054044) do
+ActiveRecord::Schema.define(version: 20150222090031) do
 
   create_table "donations", force: :cascade do |t|
-    t.string   "name",                         limit: 255
-    t.text     "description",                  limit: 65535
-    t.string   "weight",                       limit: 255
-    t.text     "special_instructions",         limit: 65535
-    t.integer  "donor_id",                     limit: 4
-    t.string   "dimensions",                   limit: 255
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
-    t.integer  "driver_id",                    limit: 4
-    t.integer  "recipient_id",                 limit: 4
-    t.text     "image",                        limit: 65535
-    t.string   "driver_to_donor_handshake",    limit: 255
-    t.string   "donor_to_recipient_handshake", limit: 255
-    t.string   "status",                       limit: 255
-    t.boolean  "completed",                    limit: 1,     default: false
+    t.string   "name",                          limit: 255
+    t.text     "description",                   limit: 65535
+    t.string   "weight",                        limit: 255
+    t.text     "special_instructions",          limit: 65535
+    t.integer  "donor_id",                      limit: 4
+    t.string   "dimensions",                    limit: 255
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.integer  "driver_id",                     limit: 4
+    t.integer  "recipient_id",                  limit: 4
+    t.text     "image",                         limit: 65535
+    t.string   "driver_to_donor_handshake",     limit: 255
+    t.string   "driver_to_recipient_handshake", limit: 255
+    t.string   "status",                        limit: 255
+    t.boolean  "completed",                     limit: 1,     default: false
     t.datetime "completed_at"
   end
 

@@ -28,12 +28,18 @@ class Api::V1::DonationsController < ApplicationController
     render json: { success: true }
   end
 
+  def arrived_at_donor
+    donation = current_user.donation.find(params[:id])
+    donation.arrived_at_donor!
+    render json: { success: true }
+  end
+
   def verify_driver_to_donor_handshake
     donation = current_user.donation.find(params[:id])
 
     if donation.driver_to_donor_handshake == params[:hash]
       if Digest::SHA1.hexdigest(donation.id.to_s + 'donor-handshake') == params[:hash]
-        donation.arrived_at_donor!
+        donation.gathered_donation!
         render json: donation
       else
         render json: { success: false }
@@ -43,10 +49,16 @@ class Api::V1::DonationsController < ApplicationController
     end
   end
 
-  def verify_donor_to_recipient_handshake
+  def arrived_at_recipient
+    donation = current_user.donation.find(params[:id])
+    donation.arrived_at_recipient!
+    render json: { success: true }
+  end
+
+  def verify_driver_to_recipient_handshake
     donation = current_user.donation.find(params[:id])
 
-    if donation.donor_to_recipient_handshake  == params[:hash]
+    if donation.driver_to_recipient_handshake  == params[:hash]
       if Digest::SHA1.hexdigest(donation.id.to_s + 'recipient-handshake') == params[:hash]
         donation.complete!
         render json: donation

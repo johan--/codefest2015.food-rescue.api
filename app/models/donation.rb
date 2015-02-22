@@ -10,7 +10,7 @@ class Donation < ActiveRecord::Base
   scope :has_been_completed, -> { where(completed: true) }
 
   def complete!
-    self.status = 'Arrived at Recipient'
+    self.status = 'Completed'
     self.completed = true
     self.completed_at = DateTime.now
     self.save!
@@ -40,11 +40,15 @@ class Donation < ActiveRecord::Base
         devices: devices
       })
     end
-
   end
 
-  def arrived_at_donor!
-    self.status = 'Arrived at Donor'
+  def arrived_at_recipient!
+    self.status = 'Arrived at Recipient'
+    self.save!
+  end
+
+  def gathered_donation!
+    self.status = 'Donation Recieved'
     self.save!
     devices = []
 
@@ -58,7 +62,11 @@ class Donation < ActiveRecord::Base
         devices: devices
       })
     end
+  end
 
+  def arrived_at_donor!
+    self.status = 'Arrived at Donor'
+    self.save!
   end
 
   def start!(driver)
