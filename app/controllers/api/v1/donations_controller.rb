@@ -13,7 +13,7 @@ class Api::V1::DonationsController < ApplicationController
   end
 
   def create
-    @donation = current_user.donations.create!(donation_params.merge(recipent: Recipent.first))
+    @donation = current_user.donations.create!(donation_params.merge(recipient: Recipient.first))
     render json: @donation
   end
 
