@@ -18,8 +18,9 @@ class Api::V1::DriversController < ApplicationController
   def driver_params
     params[:driver].permit(
       :first_name, :last_name,
-      :license_plate_number, :zipcode,
-      :city, :state, :drivers_license_number,
+      :license_plate_number,
+      :address_1, :address_2, :phone_number,
+      :zipcode, :city, :state, :drivers_license_number,
       :car_type, :car_make, :car_model, :car_year,
       :driver_photo, :car_photo)
   end
