@@ -8,18 +8,15 @@ module Geokit::ActsAsMappable
       conditions = distance_conditions(options.dup)
       sql = build_distance_sql(options)
       self.select(
-        "#{sql} AS #{self.distance_column_name}, #{table_name}.*"
+        "#{sql} AS #{self.distance  _column_name}, #{table_name}.*"
       ).where(conditions)
     end
 
     # Overwrite Geokit `by_distance`
     def by_distance(options = {})
       sql = build_distance_sql(options)
-      self.select("#{sql} AS #{self.distance_column_name}, #{table_name}.*"
-      ).order("#{self.distance_column_name} ASC")
+      self.select("#{sql} AS #{self.distance_column_name}, #{table_name}.*")
     end
-
-    private
 
     # Copied from geokit-rails/lib/geokit-rails/acts_as_mappable.rb
     # Extract distance_sql building to method `build_distance_sql`.
