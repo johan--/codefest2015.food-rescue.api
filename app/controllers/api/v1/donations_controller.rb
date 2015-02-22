@@ -2,10 +2,14 @@ class Api::V1::DonationsController < ApplicationController
   before_action :verify_authentication_token!
   before_action :verify_donor
 
-  before_action :set_donation, only: [:update]
+  before_action :set_donation, only: [:show, :update]
 
   def index
     render json: current_user.donations
+  end
+
+  def show
+    render json: @donation
   end
 
   def create
@@ -16,6 +20,10 @@ class Api::V1::DonationsController < ApplicationController
   def update
     @donation.update(donation_params)
     render json: @donation
+  end
+
+  def destroy
+    render json: @donation.delete
   end
 
   private
