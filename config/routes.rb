@@ -16,6 +16,9 @@ Rails.application.routes.draw do
             get :start_donation
             get :verify_driver_to_donor_handshake
             get :verify_donor_to_recipient_handshake
+          end
+
+          collection do
             get :past_donations
           end
         end

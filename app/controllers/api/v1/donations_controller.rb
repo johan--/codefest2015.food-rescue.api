@@ -16,6 +16,7 @@ class Api::V1::DonationsController < ApplicationController
 
     if @donation.id
       @donation.recipient = Recipient.first
+      @donation.status = 'Pending'
       @donation.save!
     end
 
