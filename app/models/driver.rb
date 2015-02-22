@@ -7,7 +7,7 @@ class Driver < User
   def possible_donations
     donations_json = []
     sql = Donor.by_distance(origin: origin).to_sql
-    ActiveRecord::Base.connection.execute(sql).each do |donor|
+    ActiveRecord::Base.connection.select_all(sql).each do |donor|
       Donation.where(donor_id: donor["id"]).each do |donation|
         donations_json << {
           name: donation.name,
