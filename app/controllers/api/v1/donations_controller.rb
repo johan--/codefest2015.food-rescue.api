@@ -58,7 +58,7 @@ class Api::V1::DonationsController < ApplicationController
   def verify_driver_to_recipient_handshake
     donation = current_user.donations.find(params[:id])
 
-    if donation.driver_to_recipient_handshake  == params[:hash]
+    if donation.donor_to_recipient_handshake  == params[:hash]
       if Digest::SHA1.hexdigest(donation.id.to_s + 'recipient-handshake') == params[:hash]
         donation.complete!
         render json: donation
