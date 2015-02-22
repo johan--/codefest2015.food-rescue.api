@@ -75,7 +75,11 @@ class Api::V1::DonationsController < ApplicationController
   private
 
   def donation_params
-    params[:donation].permit!
+    params[:donation].permit(
+      :name, :description, :weight,
+      :special_instructions, :donor_id,
+      :dimensions, :driver_id, :recipient_id
+    )
   end
 
   def set_donation
