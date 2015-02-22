@@ -1,6 +1,5 @@
 class Api::V1::DonationsController < ApplicationController
   before_action :verify_authentication_token!
-  before_action :verify_donor
 
   before_action :set_donation, only: [:show, :update, :destroy ]
 
@@ -34,10 +33,6 @@ class Api::V1::DonationsController < ApplicationController
 
   def set_donation
     @donation = current_user.donations.find(params[:id])
-  end
-
-  def verify_donor
-    yield unless current_user.type == 'Donor'
   end
 
 end
