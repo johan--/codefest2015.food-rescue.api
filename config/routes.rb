@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :users, only: [:update]
       resources :drivers, only: [:index, :update]
       resources :donors, only: [] do
-        resources :donations, only: [:index, :show, :create, :update, :delete]
+        resources :donations, except: [:new, :edit]
       end
     end
   end
