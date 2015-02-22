@@ -12,18 +12,20 @@ class Driver < User
       donor = Donor.find(donor["id"])
 
       Donation.where(donor_id: donor["id"]).each do |donation|
-        unless donation.completed
-          donations_json << {
-            id: donation.id,
-            name: donation.name,
-            description: donation.description,
-            weight: donation.weight,
-            special_instructions: donation.special_instructions,
-            recipient: donation.recipient,
-            donor: donor,
-            dimensions: donation.dimensions,
-            distance: donor.calc_distance(donor, self) + donor.calc_distance(donor, donation.recipient) + donor.calc_distance(donation.recipient, self)
-          }
+        if donor.status == 'Pending'
+          unless donation.completed
+            donations_json << {
+              id: donation.id,
+              name: donation.name,
+              description: donation.description,
+              weight: donation.weight,
+              special_instructions: donation.special_instructions,
+              recipient: donation.recipient,
+              donor: donor,
+              dimensions: donation.dimensions,
+              distance: donor.calc_distance(donor, self) + donor.calc_distance(donor, donation.recipient) + donor.calc_distance(donation.recipient, self)
+            }
+          end
         end
       end
     end
