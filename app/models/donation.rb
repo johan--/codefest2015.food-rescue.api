@@ -59,13 +59,7 @@ class Donation < ActiveRecord::Base
     if devices.length > 0
       PushNotification.new.notify_devices({
         content: "#{self.driver.first_name} has picked up #{self.donor.organization_name}'s donation.",
-        devices: devices,
-        data: {
-          {
-            "hasLink": true,
-            "link": "app.driver.listing"
-          }
-        }
+        devices: devices
       })
     end
   end
