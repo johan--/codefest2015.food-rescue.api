@@ -35,6 +35,7 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'rails-api'
 
 gem 'validates_zipcode'
+gem 'httparty'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
