@@ -11,7 +11,14 @@ Rails.application.routes.draw do
       resources :users, only: [:update]
       resources :drivers, only: [:index, :update]
       resources :donors, only: [] do
-        resources :donations, except: [:new, :edit]
+        resources :donations, except: [:new, :edit] do
+          member do
+            get :start_donation
+            get :verify_driver_to_donor_handshake
+            get :verify_donor_to_recipient_handshake
+            get :past_donations
+          end
+        end
       end
     end
   end

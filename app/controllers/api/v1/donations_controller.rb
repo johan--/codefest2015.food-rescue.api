@@ -12,8 +12,57 @@ class Api::V1::DonationsController < ApplicationController
   end
 
   def create
-    @donation = current_user.donations.create!(donation_params.merge(recipient: Recipient.first))
+    @donation = current_user.donations.create!(donation_params)
+
+    if @donation.id
+      @donation.recipient = Recipient.first
+      @donation.save!
+    end
+
     render json: @donation
+  end
+
+  def start_donation
+    donation = current_user.donation.find(params[:id])
+    donation.status = 'Driver In Progress'
+    donation.save!
+  end
+
+  def verify_driver_to_donor_handshake
+    donation = current_user.donation.find(params[:id])
+
+    if donation.driver_to_donor_handshake == params[:hash]
+      if Digest::SHA1.hexdigest(donation.id.to_s + 'donor-handshake') == params[:hash]
+        donation.status = 'Arrived at Donor'
+        donation.save!
+        render json: donation
+      else
+        render json: { success: false }
+      end
+    else
+      render json: { success: false }
+    end
+  end
+
+  def verify_donor_to_recipient_handshake
+    donation = current_user.donation.find(params[:id])
+
+    if donation.donor_to_recipient_handshake  == params[:hash]
+      if Digest::SHA1.hexdigest(donation.id.to_s + 'recipient-handshake') == params[:hash]
+        donation.status = 'Arrived at Recipient'
+        donation.completed = true
+        donation.save!
+        render json: donation
+      else
+        render json: { success: false }
+      end
+    else
+      render json: { success: false }
+    end
+  end
+
+  def past_donations
+    render json: current_user.donations.has_been_completed
   end
 
   def update

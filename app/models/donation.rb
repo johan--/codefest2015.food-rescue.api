@@ -7,6 +7,8 @@ class Donation < ActiveRecord::Base
 
   after_save :generate_md5hash
 
+  scope :has_been_completed, -> { where(completed: true) }
+
   private
 
   def generate_md5hash
