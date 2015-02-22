@@ -2,6 +2,8 @@ class Api::V1::DriversController < ApplicationController
   before_action :verify_authentication_token!
 
   def index
+    current_user.origin = params[:origin] || current_user.zipcode
+
     render json: current_user.to_json(methods: [:possible_donations])
   end
 

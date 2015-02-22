@@ -1,5 +1,6 @@
+require 'geokit'
+
 class User < ActiveRecord::Base
-  # acts_as_token_authenticatable
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -7,7 +8,24 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :token_authenticatable
 
-      # :first_name, :last_name,
-      # :license_plate_number, :zipcode,
-      # :city, :state,
+  acts_as_mappable
+
+  before_update :geocode_by
+
+  def full_street_address
+    "#{address_1} #{city} #{state} #{zipcode}"
+  end
+
+  private
+
+  def geocode_by
+    if self.address_1_changed? || self.city_changed? || self.state_changed? || self.zipcode_changed?
+      loc = Geokit::Geocoders::MultiGeocoder.geocode(self.full_street_address)
+      if loc.success
+        self.lat = loc.lat
+        self.lng = loc.lng
+        self.update_columns(lat: loc.lat, lng: loc.lng)
+      end
+    end
+  end
 end

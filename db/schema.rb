@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150221190017) do
+ActiveRecord::Schema.define(version: 20150221214839) do
 
   create_table "donations", force: :cascade do |t|
     t.string   "name",                 limit: 255
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 20150221190017) do
     t.string   "car_year",               limit: 255
     t.float    "latitude",               limit: 24
     t.float    "longitude",              limit: 24
+    t.float    "lng",                    limit: 24
+    t.float    "lat",                    limit: 24
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
