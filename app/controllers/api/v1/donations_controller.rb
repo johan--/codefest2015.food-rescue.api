@@ -8,7 +8,7 @@ class Api::V1::DonationsController < ApplicationController
   end
 
   def show
-    render json: @donation
+    render json: @donation.to_json(include: [:recipient, :driver, :donor])
   end
 
   def create
