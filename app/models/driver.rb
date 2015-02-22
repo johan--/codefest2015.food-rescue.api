@@ -12,7 +12,7 @@ class Driver < User
       donor = Donor.find(donor["id"])
 
       Donation.where(donor_id: donor["id"]).each do |donation|
-        if donor.status == 'Pending'
+        if donation.status == 'Pending'
           unless donation.completed
             donations_json << {
               id: donation.id,
