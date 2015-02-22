@@ -9,7 +9,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :zipcode, only: [:show]
       resources :users, only: [:update]
-      resources :drivers, only: [:index, :update]
+      resources :drivers, only: [:index, :update] do
+        member do
+          get :current_donations
+        end
+      end
       resources :donors, only: [] do
         resources :donations, except: [:new, :edit] do
           member do
@@ -20,7 +24,6 @@ Rails.application.routes.draw do
 
           collection do
             get :past_donations
-            get :current_donations
           end
         end
       end

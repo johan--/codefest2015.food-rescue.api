@@ -12,6 +12,11 @@ class Api::V1::DriversController < ApplicationController
     render json: current_user
   end
 
+  def current_donations
+    donations = current_user.donations.where(completed: false)
+    render json: donations
+  end
+
 
   private
 
