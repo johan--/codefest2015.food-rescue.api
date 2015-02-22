@@ -1,4 +1,6 @@
 class Driver < User
+  has_many :donations
+
 
   attr_accessor :origin, :distance
 
