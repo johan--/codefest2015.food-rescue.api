@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :recipient, only: [:update]
       resources :zipcode, only: [:show]
       resources :users, only: [:update]
       resources :drivers, only: [:index, :update] do
@@ -14,7 +15,7 @@ Rails.application.routes.draw do
           get :current_donations
         end
       end
-      resources :donors, only: [] do
+      resources :donors, only: [:update] do
         resources :donations, except: [:new, :edit] do
           member do
             post :start_donation
