@@ -14,6 +14,7 @@ class Driver < User
           description: donation.description,
           weight: donation.weight,
           special_instructions: donation.special_instructions,
+          recipient: donation.recipient,
           donor: {
             id: donor["id"],
             address_1: donor["address_1"],
