@@ -1,7 +1,7 @@
 class Api::V1::DonationsController < ApplicationController
   before_action :verify_authentication_token!
 
-  before_action :set_donation, only: [:show, :update, :destroy ]
+  before_action :set_donation, only: [:show ]
 
   def index
     render json: current_user.donations
@@ -17,11 +17,13 @@ class Api::V1::DonationsController < ApplicationController
   end
 
   def update
+    @donation = current_user.donations.find(params[:id])
     @donation.update(donation_params)
     render json: @donation
   end
 
   def destroy
+    @donation = current_user.donations.find(params[:id])
     render json: @donation.delete
   end
 
@@ -32,7 +34,7 @@ class Api::V1::DonationsController < ApplicationController
   end
 
   def set_donation
-    @donation = current_user.donations.find(params[:id])
+    @donation = Donation.find(params[:id])
   end
 
 end
